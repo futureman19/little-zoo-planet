@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#7ec8f7" />
+  <title>Little Zoo Planet</title>
+  <style>
+    :root {
+      --chip: #20242ccc;
+      --chip-solid: #20242c;
+      --ink: #ffffff;
+      --coral: #ff6b6b;
+      --sunny: #ffd93d;
+      --leaf: #6bcb77;
+      --sky: #4d96ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: "Baloo 2", "Comic Sans MS", "Chalkboard SE", ui-rounded, system-ui, sans-serif;
+      background: #7ec8f7;
+      color: var(--ink);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+    #app { position: fixed; inset: 0; }
+    #app canvas { display: block; touch-action: none; }
+
+    .hud { position: fixed; z-index: 10; pointer-events: none; }
+    .hud > * { pointer-events: auto; }
+
+    .chip {
+      background: var(--chip);
+      border-radius: 18px;
+      padding: 10px 16px;
+      font-weight: 800;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 0 #0006;
+      backdrop-filter: blur(4px);
+    }
+
+    #coins { top: max(10px, env(safe-area-inset-top)); left: 12px; }
+    #coins .num { min-width: 3ch; text-align: right; font-variant-numeric: tabular-nums; }
+    #coins.bump { animation: bump 0.35s ease; }
+    @keyframes bump { 30% { transform: scale(1.15); } }
+
+    #toggles { top: max(10px, env(safe-area-inset-top)); right: 12px; display: flex; gap: 8px; }
+    .iconbtn {
+      background: var(--chip); border: none; color: var(--ink);
+      width: 52px; height: 52px; border-radius: 16px; font-size: 24px;
+      box-shadow: 0 4px 0 #0006; cursor: pointer;
+    }
+    .iconbtn:active { transform: translateY(3px); box-shadow: 0 1px 0 #0006; }
+    .iconbtn.off { opacity: 0.45; }
+
+    #bar {
+      bottom: max(10px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+      display: flex; gap: 10px;
+    }
+    .bigbtn {
+      border: none; cursor: pointer; color: #fff;
+      min-width: 76px; height: 68px; border-radius: 20px;
+      font-family: inherit; font-weight: 800; font-size: 13px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      box-shadow: 0 5px 0 #0007;
+    }
+    .bigbtn .e { font-size: 26px; line-height: 1; }
+    .bigbtn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0007; }
+    .bigbtn.active { outline: 4px solid #fff; }
+    .bigbtn[data-k="habitat"] { background: var(--leaf); }
+    .bigbtn[data-k="animals"] { background: var(--coral); }
+    .bigbtn[data-k="decor"] { background: var(--sunny); color: #5a4a00; }
+    .bigbtn[data-k="goals"] { background: var(--sky); }
+
+    #shop {
+      bottom: calc(max(10px, env(safe-area-inset-bottom)) + 82px); left: 50%; transform: translateX(-50%);
+      display: none; gap: 10px; max-width: min(96vw, 640px);
+      overflow-x: auto; padding: 6px;
+    }
+    #shop.open { display: flex; }
+    .card {
+      flex: 0 0 auto; width: 92px; border: none; cursor: pointer;
+      background: var(--chip); color: #fff; border-radius: 18px;
+      padding: 10px 6px; font-family: inherit; font-weight: 800;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      box-shadow: 0 4px 0 #0006;
+    }
+    .card .e { font-size: 36px; line-height: 1.1; }
+    .card .nm { font-size: 13px; }
+    .card .pr { font-size: 14px; color: var(--sunny); }
+    .card.locked { opacity: 0.55; }
+    .card:active { transform: translateY(3px); box-shadow: 0 1px 0 #0006; }
+
+    #hint {
+      top: 18%; left: 50%; transform: translateX(-50%);
+      display: none; font-size: 24px; animation: floaty 1.2s ease-in-out infinite;
+    }
+    #hint.show { display: flex; }
+    @keyframes floaty { 50% { transform: translateX(-50%) translateY(-8px); } }
+
+    #toast {
+      top: max(70px, calc(env(safe-area-inset-top) + 60px)); left: 50%; transform: translateX(-50%);
+      display: none; font-size: 18px; background: var(--chip);
+    }
+    #toast.show { display: flex; animation: toastin 2.2s ease forwards; }
+    @keyframes toastin { 0% { opacity: 0; transform: translateX(-50%) scale(0.7); } 10% { opacity: 1; transform: translateX(-50%) scale(1.05); } 16% { transform: translateX(-50%) scale(1); } 85% { opacity: 1; } 100% { opacity: 0; } }
+
+    #goals {
+      inset: 0; display: none; align-items: center; justify-content: center;
+      background: #0008;
+    }
+    #goals.open { display: flex; }
+    #goalcard {
+      background: var(--chip-solid); border-radius: 24px; padding: 22px;
+      width: min(92vw, 420px); max-height: 76vh; overflow-y: auto;
+      box-shadow: 0 8px 0 #0006;
+    }
+    #goalcard h2 { font-size: 26px; margin-bottom: 12px; text-align: center; }
+    .goal {
+      display: flex; align-items: center; gap: 12px; padding: 10px 6px;
+      font-size: 18px; font-weight: 700; border-bottom: 2px solid #ffffff14;
+    }
+    .goal .check { font-size: 24px; }
+    .goal.done { color: #9be89b; }
+    .goal .reward { margin-left: auto; color: var(--sunny); font-size: 15px; }
+    #goalclose { margin-top: 14px; width: 100%; }
+
+    #title {
+      inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(#7ec8f7, #a5dd8f); gap: 18px; z-index: 50;
+    }
+    #title h1 { font-size: clamp(34px, 9vw, 64px); color: #fff; text-shadow: 0 5px 0 #0003; text-align: center; }
+    #title .zooe { font-size: clamp(48px, 14vw, 96px); animation: floaty2 2.4s ease-in-out infinite; }
+    @keyframes floaty2 { 50% { transform: translateY(-10px) rotate(4deg); } }
+    #playbtn {
+      border: none; cursor: pointer; font-family: inherit; font-weight: 800;
+      font-size: 30px; color: #5a4a00; background: var(--sunny);
+      padding: 18px 54px; border-radius: 26px; box-shadow: 0 7px 0 #0005;
+    }
+    #playbtn:active { transform: translateY(5px); box-shadow: 0 2px 0 #0005; }
+    #title.hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="coins" class="hud chip">🪙 <span class="num">0</span></div>
+  <div id="toggles" class="hud">
+    <button id="musicbtn" class="iconbtn" aria-label="Music">🎵</button>
+    <button id="sfxbtn" class="iconbtn" aria-label="Sound">🔊</button>
+  </div>
+
+  <div id="shop" class="hud"></div>
+
+  <div id="bar" class="hud">
+    <button class="bigbtn" data-k="habitat"><span class="e">🏡</span>Home</button>
+    <button class="bigbtn" data-k="animals"><span class="e">🐾</span>Animals</button>
+    <button class="bigbtn" data-k="decor"><span class="e">🌷</span>Decor</button>
+    <button class="bigbtn" data-k="goals"><span class="e">⭐</span>Goals</button>
+  </div>
+
+  <div id="hint" class="hud chip">👆 Tap the grass!</div>
+  <div id="toast" class="hud chip"></div>
+
+  <div id="goals" class="hud">
+    <div id="goalcard">
+      <h2>⭐ Zoo Goals ⭐</h2>
+      <div id="goallist"></div>
+      <button id="goalclose" class="bigbtn" data-k="close" style="background:var(--coral)">Close</button>
+    </div>
+  </div>
+
+  <div id="title" class="hud">
+    <div class="zooe">🦁🐘🐧</div>
+    <h1>Little Zoo Planet</h1>
+    <button id="playbtn">▶ Play</button>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
