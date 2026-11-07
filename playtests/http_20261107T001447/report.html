@@ -1,0 +1,21 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>Playtest report</title><style>
+:root{--bg:#1a1c2c;--fg:#f4f4f4;--mute:#94b0c2;--card:#262b44}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:28px} .verdict{color:#f77622} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.card{background:var(--card);border-radius:10px;padding:12px} .card b{display:block;font-size:22px} .card span{color:var(--mute);font-size:13px}
+ul{padding-left:18px} li{margin:10px 0} li img{max-width:100%;border-radius:8px;margin-top:6px}
+.tag{color:#1a1c2c;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;text-transform:uppercase}
+img.wide{width:100%;border-radius:10px}</style>
+<h1>Playtest: <span class=verdict>ROUGH</span></h1>
+<div class=grid>
+<div class=card><b>60.6s</b><span>played (explorer)</span></div>
+<div class=card><b>None</b><span>avg FPS (p5 None)</span></div>
+<div class=card><b>0 / 0</b><span>deaths / wins</span></div>
+<div class=card><b>0</b><span>map cells explored</span></div>
+<div class=card><b>0.0001</b><span>mean screen novelty</span></div>
+<div class=card><b>1</b><span>console errors</span></div></div>
+<h2>Issues</h2><ul><li><span class=tag style='background:#f77622'>major</span> <b>Input had no visible effect</b> — screen unchanged for 6s while input was held <i>t=6.8s</i><br><img src="shots\01_frozen.jpg" alt=""></li><li><span class=tag style='background:#f77622'>major</span> <b>Input had no visible effect</b> — screen unchanged for 6s while input was held <i>t=16.9s</i><br><img src="shots\03_frozen.jpg" alt=""></li><li><span class=tag style='background:#f77622'>major</span> <b>Input had no visible effect</b> — screen unchanged for 6s while input was held <i>t=26.9s</i><br><img src="shots\04_frozen.jpg" alt=""></li><li><span class=tag style='background:#f77622'>major</span> <b>Input had no visible effect</b> — screen unchanged for 6s while input was held <i>t=37.3s</i><br><img src="shots\06_frozen.jpg" alt=""></li><li><span class=tag style='background:#f77622'>major</span> <b>Input had no visible effect</b> — screen unchanged for 6s while input was held <i>t=47.3s</i><br><img src="shots\08_frozen.jpg" alt=""></li><li><span class=tag style='background:#f77622'>major</span> <b>Input had no visible effect</b> — screen unchanged for 6s while input was held <i>t=57.7s</i><br><img src="shots\09_frozen.jpg" alt=""></li><li><span class=tag style='background:#41a6f6'>design</span> <b>Low-novelty stretch (likely boring)</b> — 8s–60s: the screen barely changed and nothing happened <i>t=7.75s</i></li></ul>
+
+<h2>Timeline</h2><img class=wide src="timeline.png" alt="novelty and fps over time">
+<h2>Key moments</h2><img class=wide src="moments.jpg" alt="screenshots of key moments">

@@ -3,7 +3,7 @@
 import { SimSnapshot } from './sim';
 import { SAVE_KEY } from './config';
 
-export interface Prefs { musicOn: boolean; sfxOn: boolean }
+export interface Prefs { musicOn: boolean; sfxOn: boolean; nightMode: boolean }
 
 export function loadSave(): SimSnapshot | null {
   try {
@@ -24,9 +24,9 @@ export function writeSave(snap: SimSnapshot): void {
 export function loadPrefs(): Prefs {
   try {
     const raw = localStorage.getItem(SAVE_KEY + '-prefs');
-    if (raw) return { musicOn: true, sfxOn: true, ...JSON.parse(raw) };
+    if (raw) return { musicOn: true, sfxOn: true, nightMode: false, ...JSON.parse(raw) };
   } catch { /* ignore */ }
-  return { musicOn: true, sfxOn: true };
+  return { musicOn: true, sfxOn: true, nightMode: false };
 }
 
 export function writePrefs(p: Prefs): void {

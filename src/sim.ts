@@ -15,6 +15,8 @@ export interface Animal {
   tx: number; tz: number;        // wander target
   pauseT: number;                // seconds left standing still
   hopT: number;                  // >0 while celebrating
+  trickT: number;                // >0 while doing a trick (spin)
+  trickCd: number;               // seconds until the next trick is allowed
 }
 export interface Guest {
   id: number; x: number; z: number; tx: number; tz: number;
@@ -29,13 +31,15 @@ export type SimEvent =
   | { type: 'adopted'; animalId: number }
   | { type: 'habitatPlaced'; id: number }
   | { type: 'decorPlaced'; id: number }
-  | { type: 'hop'; animalId: number };
+  | { type: 'hop'; animalId: number }
+  | { type: 'trick'; animalId: number; x: number; z: number };
 
 export interface SimSnapshot {
   v: 1; seed: string; coins: number; lifetimeCoins: number;
   freeHabitat: boolean; nextId: number;
   habitats: Habitat[]; animals: Animal[]; guests: Guest[];
   decor: Decor[]; milestonesDone: string[];
+  tricksDone?: number;           // absent in pre-trick saves
 }
 
 export const PLOT_MIN = -(GRID * TILE) / 2;   // -16
@@ -78,6 +82,7 @@ export class Sim {
   milestonesDone = new Set<string>();
   events: SimEvent[] = [];
   guestSpawnT = 2.5;
+  tricksDone = 0;
 
   constructor(seed: string) {
     this.seed = seed;
@@ -143,7 +148,7 @@ export class Sim {
       id: this.nextId++, speciesId, habitatId,
       happiness: 70,
       x: rngRange(this.rng, inner.x0, inner.x1), z: rngRange(this.rng, inner.z0, inner.z1),
-      tx: 0, tz: 0, pauseT: 0, hopT: 0,
+      tx: 0, tz: 0, pauseT: 0, hopT: 0, trickT: 0, trickCd: 0,
     };
     a.tx = a.x; a.tz = a.z;
     this.animals.push(a);
@@ -159,6 +164,20 @@ export class Sim {
     a.happiness = Math.min(100, a.happiness + ECON.feedHappy);
     a.hopT = 0.9;
     this.events.push({ type: 'fed', animalId: a.id, x: a.x, z: a.z });
+    this.checkMilestones();
+    return true;
+  }
+
+  /** Double-tap trick: free, small happiness bump, per-animal cooldown. */
+  trickAnimal(id: number): boolean {
+    const a = this.animal(id);
+    if (!a || a.trickCd > 0) return false;
+    a.trickT = 1.1;
+    a.trickCd = 8;
+    a.pauseT = Math.max(a.pauseT, 1.1); // hold still while spinning
+    a.happiness = Math.min(100, a.happiness + 6);
+    this.tricksDone++;
+    this.events.push({ type: 'trick', animalId: a.id, x: a.x, z: a.z });
     this.checkMilestones();
     return true;
   }
@@ -185,6 +204,8 @@ export class Sim {
     for (const a of this.animals) {
       a.happiness = Math.max(0, a.happiness - ECON.happyDecayPerSec * dt);
       if (a.hopT > 0) a.hopT = Math.max(0, a.hopT - dt);
+      if (a.trickT > 0) a.trickT = Math.max(0, a.trickT - dt);
+      if (a.trickCd > 0) a.trickCd = Math.max(0, a.trickCd - dt);
       this.wanderAnimal(a, dt);
     }
     this.updateGuests(dt);
@@ -196,6 +217,7 @@ export class Sim {
     const h = this.habitats.find((hh) => hh.id === a.habitatId);
     if (!h) return;
     if (a.pauseT > 0) { a.pauseT -= dt; return; }
+    if (a.trickT > 0) return; // spinning in place
     const dx = a.tx - a.x, dz = a.tz - a.z;
     const dist = Math.hypot(dx, dz);
     if (dist < 0.15) {
@@ -297,6 +319,7 @@ export class Sim {
       lifetimeCoins: this.lifetimeCoins,
       habitatCount: this.habitats.length,
       decorCount: this.decor.length,
+      tricksDone: this.tricksDone,
     };
     for (const m of MILESTONES) {
       if (!this.milestonesDone.has(m.id) && m.test(s)) {
@@ -324,6 +347,7 @@ export class Sim {
       freeHabitat: this.freeHabitat, nextId: this.nextId,
       habitats: this.habitats, animals: this.animals, guests: [],
       decor: this.decor, milestonesDone: [...this.milestonesDone],
+      tricksDone: this.tricksDone,
     };
   }
 
@@ -335,8 +359,11 @@ export class Sim {
     sim.nextId = snap.nextId;
     sim.habitats = snap.habitats;
     sim.animals = snap.animals;
+    // pre-trick saves lack the new fields — normalize, never lose the zoo
+    for (const a of sim.animals) { a.trickT ??= 0; a.trickCd ??= 0; }
     sim.decor = snap.decor;
     sim.milestonesDone = new Set(snap.milestonesDone);
+    sim.tricksDone = snap.tricksDone ?? 0;
     return sim;
   }
 }

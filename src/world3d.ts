@@ -221,7 +221,15 @@ export class World3D {
         m.rotation.y += shortAngle(m.rotation.y, targetRot) * Math.min(1, dt * 8);
         m.position.y = Math.abs(Math.sin(t * 7 + a.id)) * 0.05;
       }
-      if (a.hopT > 0) {
+      if (a.trickT > 0) {
+        // trick: two full spins with a hop arc
+        const k = 1 - a.trickT / 1.1;
+        m.rotation.y = k * Math.PI * 4;
+        m.position.y = Math.sin(k * Math.PI) * 0.8;
+        const squash = 1 + Math.sin(k * Math.PI) * 0.15;
+        m.scale.set(1 / Math.sqrt(squash), squash, 1 / Math.sqrt(squash));
+        if (a.trickT - dt <= 0) m.rotation.y = 0;
+      } else if (a.hopT > 0) {
         const k = 1 - a.hopT / 0.9;
         m.position.y = Math.sin(k * Math.PI) * 0.55;
         const squash = 1 + Math.sin(k * Math.PI) * 0.18;

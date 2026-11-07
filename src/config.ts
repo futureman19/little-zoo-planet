@@ -27,6 +27,9 @@ export const SPECIES: readonly SpeciesDef[] = [
   { id: 'lion',     name: 'Lion',     emoji: '🦁', cost: 150, unlock: { kind: 'lifetimeCoins', n: 300 }, chirpFreq: 180,  speed: 1.1 },
   { id: 'giraffe',  name: 'Giraffe',  emoji: '🦒', cost: 180, unlock: { kind: 'animalCount', n: 5 },     chirpFreq: 520,  speed: 1.0 },
   { id: 'elephant', name: 'Elephant', emoji: '🐘', cost: 250, unlock: { kind: 'lifetimeCoins', n: 800 }, chirpFreq: 120,  speed: 0.7 },
+  { id: 'fox',      name: 'Fox',      emoji: '🦊', cost: 100, unlock: { kind: 'animalCount', n: 3 },     chirpFreq: 740,  speed: 1.5 },
+  { id: 'owl',      name: 'Owl',      emoji: '🦉', cost: 160, unlock: { kind: 'lifetimeCoins', n: 500 }, chirpFreq: 330,  speed: 1.2 },
+  { id: 'turtle',   name: 'Turtle',   emoji: '🐢', cost: 140, unlock: { kind: 'happyCount', n: 6 },      chirpFreq: 240,  speed: 0.45 },
 ];
 
 export const COSTS = {
@@ -70,16 +73,20 @@ export interface MilestoneState {
   lifetimeCoins: number;
   habitatCount: number;
   decorCount: number;
+  tricksDone: number;
 }
 
 export const MILESTONES: readonly MilestoneDef[] = [
   { id: 'first-animal', text: 'Adopt your first animal', reward: 50,  test: (s) => s.animalCount >= 1 },
   { id: 'first-decor',  text: 'Place a decoration',       reward: 25,  test: (s) => s.decorCount >= 1 },
+  { id: 'first-trick',  text: 'Double-tap an animal: trick! ✨', reward: 30, test: (s) => s.tricksDone >= 1 },
   { id: 'three-species', text: 'Adopt 3 different animals', reward: 75, test: (s) => s.speciesOwned >= 3 },
   { id: 'three-homes',  text: 'Build 3 homes',            reward: 100, test: (s) => s.habitatCount >= 3 },
   { id: 'five-happy',   text: 'Make 5 animals happy',     reward: 100, test: (s) => s.happyCount >= 5 },
   { id: 'rich-zoo',     text: 'Earn 500 coins total',     reward: 150, test: (s) => s.lifetimeCoins >= 500 },
+  { id: 'five-species', text: 'Adopt 5 different animals', reward: 150, test: (s) => s.speciesOwned >= 5 },
   { id: 'ten-animals',  text: 'Adopt 10 animals',         reward: 200, test: (s) => s.animalCount >= 10 },
+  { id: 'all-species',  text: 'Adopt all 9 animals!',     reward: 400, test: (s) => s.speciesOwned >= 9 },
 ];
 
 export const PALETTE = {

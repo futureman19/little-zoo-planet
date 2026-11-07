@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { Sim, SimEvent, PLOT_MIN, PLOT_MAX, worldToTile } from './sim';
 import { World3D } from './world3d';
-import { Fx } from './fx';
+import { Fx, makeEmojiTexture } from './fx';
 import { Ui, ShopAction } from './ui';
 import { AudioMan } from './audio';
 import { loadSave, writeSave, loadPrefs, writePrefs } from './save';
@@ -50,6 +50,58 @@ sun.shadow.bias = -0.0004;
 sun.shadow.normalBias = 0.55;
 scene.add(sun);
 
+// ---------- night sky (stars + moon fade in with nightK) ----------
+const STAR_COUNT = 160;
+const starPos = new Float32Array(STAR_COUNT * 3);
+for (let i = 0; i < STAR_COUNT; i++) {
+  const az = Math.random() * Math.PI * 2;
+  const el = 0.15 + Math.random() * 0.8; // keep above the horizon
+  const r = 70 + Math.random() * 20;
+  starPos[i * 3] = Math.cos(az) * Math.cos(el) * r;
+  starPos[i * 3 + 1] = Math.sin(el) * r;
+  starPos[i * 3 + 2] = Math.sin(az) * Math.cos(el) * r;
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const starMat = new THREE.PointsMaterial({
+  color: 0xfffbe8, size: 1.6, sizeAttenuation: true,
+  transparent: true, opacity: 0, fog: false, depthWrite: false,
+});
+const stars = new THREE.Points(starGeo, starMat);
+scene.add(stars);
+const moonMat = new THREE.SpriteMaterial({ map: makeEmojiTexture('🌙'), transparent: true, opacity: 0, fog: false, depthWrite: false });
+const moon = new THREE.Sprite(moonMat);
+moon.scale.setScalar(9);
+moon.position.set(28, 42, -45);
+scene.add(moon);
+
+// day ↔ night blending
+const DAY = {
+  sky: new THREE.Color(0x7ec8f7),
+  sunColor: new THREE.Color(0xfff5e0),
+  sunI: 1.15, hemiI: 0.5, envI: 0.4, exposure: 1.08,
+};
+const NIGHT = {
+  sky: new THREE.Color(0x141c3a),
+  sunColor: new THREE.Color(0x9fb8ff),
+  sunI: 0.35, hemiI: 0.18, envI: 0.12, exposure: 0.95,
+};
+let nightK = 0;
+let nightTarget = 0;
+const skyScratch = new THREE.Color();
+function applyNight(k: number): void {
+  skyScratch.lerpColors(DAY.sky, NIGHT.sky, k);
+  (scene.background as THREE.Color).copy(skyScratch);
+  scene.fog!.color.copy(skyScratch);
+  sun.color.lerpColors(DAY.sunColor, NIGHT.sunColor, k);
+  sun.intensity = THREE.MathUtils.lerp(DAY.sunI, NIGHT.sunI, k);
+  hemi.intensity = THREE.MathUtils.lerp(DAY.hemiI, NIGHT.hemiI, k);
+  scene.environmentIntensity = THREE.MathUtils.lerp(DAY.envI, NIGHT.envI, k);
+  renderer.toneMappingExposure = THREE.MathUtils.lerp(DAY.exposure, NIGHT.exposure, k);
+  starMat.opacity = k;
+  moonMat.opacity = k;
+}
+
 // ---------- controls ----------
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -85,10 +137,58 @@ const ui = new Ui({
     if (which === 'music') { audio.setMusicOn(!audio.musicOn); }
     else { audio.setSfxOn(!audio.sfxOn); }
     ui.setAudioToggles(audio.musicOn, audio.sfxOn);
-    writePrefs({ musicOn: audio.musicOn, sfxOn: audio.sfxOn });
+    writePrefs({ musicOn: audio.musicOn, sfxOn: audio.sfxOn, nightMode: nightTarget > 0 });
   },
 });
 ui.setAudioToggles(audio.musicOn, audio.sfxOn);
+
+// ---------- night mode toggle ----------
+const nightBtn = document.getElementById('nightbtn')!;
+function setNight(on: boolean, silent = false): void {
+  nightTarget = on ? 1 : 0;
+  nightBtn.textContent = on ? '☀️' : '🌙';
+  if (!silent) {
+    audio.play('ui');
+    ui.toast(on ? '🌙 Night night!' : '☀️ Good morning!');
+  }
+  writePrefs({ musicOn: audio.musicOn, sfxOn: audio.sfxOn, nightMode: on });
+}
+nightBtn.addEventListener('click', () => setNight(nightTarget < 1));
+if (prefs.nightMode) { nightK = 1; setNight(true, true); applyNight(1); }
+
+// ---------- photo button ----------
+const flashEl = document.getElementById('flash')!;
+function snapPhoto(): string {
+  controls.update();
+  renderer.render(scene, camera);
+  return renderer.domElement.toDataURL('image/png');
+}
+document.getElementById('photobtn')!.addEventListener('click', () => {
+  audio.play('shutter');
+  flashEl.classList.remove('snap');
+  void flashEl.offsetWidth;
+  flashEl.classList.add('snap');
+  const dataUrl = snapPhoto();
+  const file = dataUrlToFile(dataUrl, 'my-zoo.png');
+  const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean; share?: (d: ShareData) => Promise<void> };
+  if (nav.canShare?.({ files: [file] }) && nav.share) {
+    nav.share({ files: [file], title: 'My Zoo' }).catch(() => { /* cancelled */ });
+  } else {
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'my-zoo.png';
+    a.click();
+  }
+  ui.toast('📸 Say cheese!');
+});
+function dataUrlToFile(dataUrl: string, name: string): File {
+  const [head, b64] = dataUrl.split(',');
+  const mime = head.match(/:(.*?);/)?.[1] ?? 'image/png';
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new File([bytes], name, { type: mime });
+}
 
 // restore world from save
 for (const h of sim.habitats) world.addHabitat(h);
@@ -104,6 +204,7 @@ const manifest: Record<string, string[]> = {
   magic: ['magic_0.wav', 'magic_1.wav'],
   pickup: ['pickup_0.wav', 'pickup_1.wav'],
   thud: ['thud_0.wav', 'thud_1.wav'],
+  shutter: ['shutter_0.wav', 'shutter_1.wav'],
 };
 for (const sp of SPECIES) {
   manifest[`chirp_${sp.id}`] = [`chirp_${sp.id}_0.wav`, `chirp_${sp.id}_1.wav`];
@@ -161,6 +262,7 @@ const ray = new THREE.Raycaster();
 const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 const ndc = new THREE.Vector2();
 let downPos: { x: number; y: number; t: number } | null = null;
+let lastTap = { id: -1, t: -1000 }; // double-tap → trick detection
 
 function setNdc(e: PointerEvent): void {
   ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
@@ -238,6 +340,16 @@ function handleTap(e: PointerEvent): void {
     const entry = meshes.find(([, m]) => m === obj);
     if (entry) {
       const [animalId, m] = entry;
+      const now = performance.now();
+      const isDouble = lastTap.id === animalId && now - lastTap.t < 400;
+      lastTap = { id: animalId, t: now };
+      if (isDouble && sim.trickAnimal(animalId)) {
+        fx.stars(m.position.clone(), 8);
+        audio.play('magic', 1.4);
+        audio.play(`chirp_${sim.animal(animalId)!.speciesId}`, 1.3, 0.1);
+        dirty = true;
+        return;
+      }
       if (sim.feedAnimal(animalId)) {
         const a = sim.animal(animalId)!;
         fx.hearts(m.position.clone());
@@ -298,6 +410,10 @@ function routeEvents(events: SimEvent[]): void {
         if (a && Math.random() < 0.5) audio.play(`chirp_${a.speciesId}`, 1, 0.12);
         break;
       }
+      case 'trick': {
+        dirty = true; // persist tricksDone (milestone progress)
+        break;
+      }
       case 'habitatPlaced':
       case 'decorPlaced': {
         dirty = true;
@@ -327,6 +443,10 @@ function step(dt: number): void {
   routeEvents(sim.drainEvents());
   world.sync(sim, simTime, dt);
   fx.update(dt);
+  if (nightK !== nightTarget) {
+    nightK = THREE.MathUtils.clamp(nightK + Math.sign(nightTarget - nightK) * dt * 1.4, 0, 1);
+    applyNight(nightK);
+  }
 }
 
 renderer.setAnimationLoop((t) => {
@@ -360,6 +480,8 @@ declare global {
       pump(n: number, dtEach?: number): void;
       renderOnce(): void;
       stats(): { calls: number; tris: number };
+      setNight(on: boolean): void;
+      photo(): string;
     };
     __LZP_SIM_DONE: Set<string>;
   }
@@ -379,5 +501,13 @@ window.__APP = {
   },
   stats() {
     return { calls: renderer.info.render.calls, tris: renderer.info.render.triangles };
+  },
+  setNight(on: boolean): void {
+    setNight(on, true);
+    nightK = on ? 1 : 0;
+    applyNight(nightK);
+  },
+  photo(): string {
+    return snapPhoto();
   },
 };

@@ -144,6 +144,13 @@
     }
     #playbtn:active { transform: translateY(5px); box-shadow: 0 2px 0 #0005; }
     #title.hidden { display: none; }
+
+    #flash {
+      position: fixed; inset: 0; z-index: 40; pointer-events: none;
+      background: #fff; opacity: 0;
+    }
+    #flash.snap { animation: snapflash 0.45s ease-out; }
+    @keyframes snapflash { 0% { opacity: 0; } 15% { opacity: 0.95; } 100% { opacity: 0; } }
   </style>
 </head>
 <body>
@@ -151,9 +158,13 @@
 
   <div id="coins" class="hud chip">🪙 <span class="num">0</span></div>
   <div id="toggles" class="hud">
+    <button id="photobtn" class="iconbtn" aria-label="Photo">📸</button>
+    <button id="nightbtn" class="iconbtn" aria-label="Night">🌙</button>
     <button id="musicbtn" class="iconbtn" aria-label="Music">🎵</button>
     <button id="sfxbtn" class="iconbtn" aria-label="Sound">🔊</button>
   </div>
+
+  <div id="flash"></div>
 
   <div id="shop" class="hud"></div>
 

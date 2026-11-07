@@ -115,6 +115,58 @@ const builders: Record<string, (g: THREE.Group) => void> = {
     }
   },
 
+  fox(g) {
+    const body = sphere(0.3, 0xe8722a); body.scale.set(1, 1, 1.25); body.position.y = 0.42; g.add(body);
+    const chest = sphere(0.2, 0xf5f0e0); chest.scale.set(0.75, 0.9, 0.6); chest.position.set(0, 0.4, 0.26); g.add(chest);
+    const head = sphere(0.2, 0xe8722a); head.position.set(0, 0.78, 0.18); g.add(head);
+    const snout = cone(0.09, 0.22, 0xf5f0e0, 6); snout.rotation.x = Math.PI / 2; snout.position.set(0, 0.74, 0.4); g.add(snout);
+    const nose = sphere(0.04, 0x2b2b33, 5, 4); nose.position.set(0, 0.74, 0.5); g.add(nose);
+    for (const s of [-1, 1]) {
+      const ear = cone(0.09, 0.24, 0xe8722a, 5); ear.position.set(s * 0.13, 0.98, 0.14); ear.rotation.z = s * -0.2; g.add(ear);
+      const tip = cone(0.045, 0.1, 0x2b2b33, 5); tip.position.set(s * 0.17, 1.1, 0.14); tip.rotation.z = s * -0.2; g.add(tip);
+      for (const z of [0.2, -0.18]) {
+        const leg = cyl(0.045, 0.045, 0.3, 0x2b2b33); leg.position.set(s * 0.14, 0.15, z); g.add(leg);
+      }
+    }
+    eyes(g, 0.09, 0.84, 0.34);
+    // big bushy tail with a white tip, curling up
+    const tail = cyl(0.05, 0.13, 0.5, 0xe8722a); tail.position.set(0, 0.5, -0.48); tail.rotation.x = -1.0; g.add(tail);
+    const tailTip = sphere(0.09, 0xf5f0e0); tailTip.position.set(0, 0.72, -0.66); g.add(tailTip);
+  },
+
+  owl(g) {
+    const body = sphere(0.32, 0x8a6a9e); body.scale.set(1, 1.15, 0.9); body.position.y = 0.46; g.add(body);
+    const belly = sphere(0.24, 0xd9c8e8); belly.scale.set(0.8, 1, 0.55); belly.position.set(0, 0.42, 0.16); g.add(belly);
+    const head = sphere(0.22, 0x8a6a9e); head.position.y = 0.88; g.add(head);
+    // big owl eyes: white discs + dark pupils
+    for (const s of [-1, 1]) {
+      const disc = sphere(0.085, 0xf5f5f0, 7, 5); disc.scale.z = 0.5; disc.position.set(s * 0.1, 0.92, 0.17); g.add(disc);
+      const pupil = sphere(0.04, 0x2b2b33, 5, 4); pupil.position.set(s * 0.1, 0.92, 0.24); g.add(pupil);
+      const tuft = cone(0.06, 0.14, 0x8a6a9e, 5); tuft.position.set(s * 0.14, 1.08, 0); tuft.rotation.z = s * -0.35; g.add(tuft);
+      const wing = sphere(0.14, 0x75568a); wing.scale.set(0.45, 1.3, 0.9); wing.position.set(s * 0.34, 0.45, 0); wing.rotation.z = s * -0.15; g.add(wing);
+      const foot = box(0.09, 0.05, 0.12, 0xffd93d); foot.position.set(s * 0.1, 0.03, 0.05); g.add(foot);
+    }
+    const beak = cone(0.05, 0.12, 0xff9f45, 5); beak.rotation.x = Math.PI / 2 + 0.3; beak.position.set(0, 0.84, 0.22); g.add(beak);
+  },
+
+  turtle(g) {
+    // dome shell
+    const shell = sphere(0.38, 0x4e9b47); shell.scale.set(1, 0.75, 1.1); shell.position.y = 0.3; g.add(shell);
+    const shellTop = sphere(0.3, 0x3d8a3f, 7, 5); shellTop.scale.set(1, 0.6, 1.1); shellTop.position.y = 0.38; g.add(shellTop);
+    // shell pattern: a few darker bumps
+    const bumpPos: [number, number, number][] = [[0.16, 0.52, 0.1], [-0.16, 0.52, 0.1], [0, 0.55, -0.18]];
+    for (const [x, y, z] of bumpPos) {
+      const bump = sphere(0.08, 0x2f6e31, 5, 4); bump.scale.y = 0.5; bump.position.set(x, y, z); g.add(bump);
+    }
+    const head = sphere(0.13, 0x8fd07a); head.position.set(0, 0.28, 0.48); g.add(head);
+    eyes(g, 0.06, 0.32, 0.56, 0.035);
+    for (const s of [-1, 1]) {
+      const legF = sphere(0.09, 0x8fd07a); legF.scale.set(1, 0.6, 1.2); legF.position.set(s * 0.34, 0.08, 0.24); g.add(legF);
+      const legB = sphere(0.09, 0x8fd07a); legB.scale.set(1, 0.6, 1.2); legB.position.set(s * 0.34, 0.08, -0.22); g.add(legB);
+    }
+    const tail = cone(0.05, 0.14, 0x8fd07a, 5); tail.rotation.x = -Math.PI / 2 - 0.3; tail.position.set(0, 0.14, -0.44); g.add(tail);
+  },
+
   elephant(g) {
     const body = sphere(0.55, 0x9aa3ad); body.scale.set(1.15, 1, 1); body.position.y = 0.75; g.add(body);
     const head = sphere(0.34, 0x9aa3ad); head.position.set(0, 1.05, 0.55); g.add(head);

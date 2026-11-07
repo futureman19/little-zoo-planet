@@ -953,6 +953,296 @@
       },
       "created": "2026-11-07T00:01:27",
       "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_fox",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_fox_1.wav",
+        "assets\\sfx\\chirp_fox_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 513377,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.195774575369387,
+              "env_punch": 0.0,
+              "env_decay": 0.013143383424222678,
+              "base_freq": 740,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.296924565951882,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_fox_1.wav",
+            "seconds": 0.087
+          },
+          {
+            "preset": "blip",
+            "seed": 513377,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0012923412938508974,
+              "env_sustain": 0.21571590536860996,
+              "env_punch": 0.04054846202220293,
+              "env_decay": 0.041034633628588946,
+              "base_freq": 740,
+              "freq_limit": 0.03196818902848643,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.04530092946057453,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": -0.03751523372655566,
+              "arp_speed": 0.0,
+              "duty": 0.2574287060841437,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.11819323494309998,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_fox_2.wav",
+            "seconds": 0.109
+          }
+        ]
+      },
+      "created": "2026-11-07T08:49:25",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_owl",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_owl_1.wav",
+        "assets\\sfx\\chirp_owl_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 88123,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.1677223504719903,
+              "env_punch": 0.0,
+              "env_decay": 0.3,
+              "base_freq": 330,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.35883569013556843,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_owl_1.wav",
+            "seconds": 0.268
+          },
+          {
+            "preset": "blip",
+            "seed": 88123,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.1677223504719903,
+              "env_punch": 0.0,
+              "env_decay": 0.3123419730117333,
+              "base_freq": 330,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.04020544091102132,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.029590705864184885,
+              "arp_speed": 0.023926876540519976,
+              "duty": 0.35883569013556843,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 0.9581180937628317,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.12459876126530389,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_owl_2.wav",
+            "seconds": 0.285
+          }
+        ]
+      },
+      "created": "2026-11-07T08:49:25",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_turtle",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_turtle_1.wav",
+        "assets\\sfx\\chirp_turtle_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 402199,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.11138096238824749,
+              "env_punch": 0.0,
+              "env_decay": 0.25,
+              "base_freq": 240,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.2902203313620622,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_turtle_1.wav",
+            "seconds": 0.17
+          },
+          {
+            "preset": "blip",
+            "seed": 402199,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.11138096238824749,
+              "env_punch": 0.025653549156132813,
+              "env_decay": 0.25,
+              "base_freq": 240,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.004769505871583445,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.046660270844471,
+              "arp_mod": 0.0,
+              "arp_speed": 0.03784788849166387,
+              "duty": 0.26377144273556113,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": -0.011730704561474702,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.011795412722544266,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_turtle_2.wav",
+            "seconds": 0.17
+          }
+        ]
+      },
+      "created": "2026-11-07T08:49:25",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "shutter",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\shutter_1.wav",
+        "assets\\sfx\\shutter_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "click",
+            "seed": 66410,
+            "style": "retro",
+            "variation": 0,
+            "params": {
+              "pitch": 1.4
+            },
+            "file": "shutter_1.wav",
+            "seconds": 0.021
+          },
+          {
+            "preset": "click",
+            "seed": 66410,
+            "style": "retro",
+            "variation": 1,
+            "params": {
+              "pitch": 1.4
+            },
+            "file": "shutter_2.wav",
+            "seconds": 0.021
+          }
+        ]
+      },
+      "created": "2026-11-07T08:49:32",
+      "license": "CC0-1.0 (procedurally generated)"
     }
   ]
 }
