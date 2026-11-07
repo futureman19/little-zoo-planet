@@ -9,7 +9,7 @@ import { Fx } from './fx';
 import { Ui, ShopAction } from './ui';
 import { AudioMan } from './audio';
 import { loadSave, writeSave, loadPrefs, writePrefs } from './save';
-import { COSTS, TILE, SPECIES } from './config';
+import { COSTS, TILE, SPECIES, SAVE_KEY } from './config';
 
 const isCoarse = matchMedia('(pointer: coarse)').matches;
 
@@ -21,7 +21,7 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.08;
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap; // r186 removed PCFSoftShadowMap
 renderer.setSize(innerWidth, innerHeight);
 app.appendChild(renderer.domElement);
 
@@ -31,15 +31,15 @@ scene.fog = new THREE.Fog(0x7ec8f7, 55, 110);
 
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-scene.environmentIntensity = 0.55;
+scene.environmentIntensity = 0.4;
 
 const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 200);
-camera.position.set(14, 18, 30);
+camera.position.set(10, 30, 16);
 
 // ---------- lights ----------
-const hemi = new THREE.HemisphereLight(0xbfe3ff, 0x6fb44f, 0.75);
+const hemi = new THREE.HemisphereLight(0xbfe3ff, 0x6fb44f, 0.5);
 scene.add(hemi);
-const sun = new THREE.DirectionalLight(0xfff5e0, 1.6);
+const sun = new THREE.DirectionalLight(0xfff5e0, 1.15);
 sun.position.set(18, 30, 12);
 sun.castShadow = true;
 sun.shadow.mapSize.setScalar(isCoarse ? 1024 : 2048);
@@ -66,7 +66,9 @@ const audio = new AudioMan();
 audio.musicOn = prefs.musicOn;
 audio.sfxOn = prefs.sfxOn;
 
-const saved = loadSave();
+const freshStart = new URLSearchParams(location.search).has('fresh');
+if (freshStart) localStorage.removeItem(SAVE_KEY);
+const saved = freshStart ? null : loadSave();
 const sim = saved ? Sim.restore(saved) : new Sim(`zoo-${Date.now()}`);
 const world = new World3D(scene);
 const fx = new Fx(scene);
@@ -75,6 +77,10 @@ let placement: { kind: 'habitat' } | { kind: 'decor'; decorId: string } | { kind
 
 const ui = new Ui({
   onShopAction(a: ShopAction) { handleShopAction(a); },
+  onCategory() {
+    exitPlacement();
+    ui.renderShop(sim);
+  },
   onToggleAudio(which) {
     if (which === 'music') { audio.setMusicOn(!audio.musicOn); }
     else { audio.setSfxOn(!audio.sfxOn); }
@@ -222,6 +228,10 @@ function handleTap(e: PointerEvent): void {
   // feed: tap an animal
   const meshes = [...world.animalScreenTargets().entries()];
   const hits = ray.intersectObjects(meshes.map(([, m]) => m), true);
+  (window as unknown as Record<string, unknown>).__LZP_TAP = {
+    cx: e.clientX, cy: e.clientY, hits: hits.length,
+    first: hits[0] ? hits[0].object.type : null, meshCount: meshes.length,
+  };
   if (hits.length) {
     let obj: THREE.Object3D | null = hits[0].object;
     while (obj && !meshes.some(([, m]) => m === obj)) obj = obj.parent;
@@ -344,6 +354,9 @@ declare global {
   interface Window {
     __APP: {
       sim: Sim;
+      world: World3D;
+      camera: THREE.PerspectiveCamera;
+      controls: OrbitControls;
       pump(n: number, dtEach?: number): void;
       renderOnce(): void;
       stats(): { calls: number; tris: number };
@@ -354,6 +367,9 @@ declare global {
 window.__LZP_SIM_DONE = sim.milestonesDone;
 window.__APP = {
   sim,
+  world,
+  camera,
+  controls,
   pump(n: number, dtEach = 1 / 60): void {
     for (let i = 0; i < n; i++) step(dtEach);
   },

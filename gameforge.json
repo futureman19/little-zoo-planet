@@ -1,0 +1,958 @@
+{
+  "name": "little-zoo-planet",
+  "created": "2026-11-07T00:00:19",
+  "assets": [
+    {
+      "name": "music",
+      "kind": "music",
+      "files": [
+        "assets\\music\\music.wav",
+        "assets\\music\\music.mid"
+      ],
+      "recipe": {
+        "tool": "forge_music",
+        "mood": "happy",
+        "style": "chiptune",
+        "seed": 83745,
+        "bpm": 104,
+        "bars": 8,
+        "key": "C",
+        "mode": "major",
+        "progression": [
+          0,
+          5,
+          3,
+          4,
+          0,
+          5,
+          3,
+          4
+        ]
+      },
+      "created": "2026-11-07T00:00:19",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "coin",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\coin_1.wav",
+        "assets\\sfx\\coin_2.wav",
+        "assets\\sfx\\coin_3.wav",
+        "assets\\sfx\\coin_4.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "coin",
+            "seed": 748267,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.035997344440168944,
+              "env_punch": 0.49969407344109507,
+              "env_decay": 0.27636290110823564,
+              "base_freq": 0.5707658551266759,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "coin_1.wav",
+            "seconds": 0.176
+          },
+          {
+            "preset": "coin",
+            "seed": 748267,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.0046918820189351396,
+              "env_punch": 0.5123189824050279,
+              "env_decay": 0.23433305495559378,
+              "base_freq": 0.5707658551266759,
+              "freq_limit": 0.0,
+              "freq_ramp": -0.007291792346798311,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.006716998433637877,
+              "vib_speed": 0.015103547346529717,
+              "arp_mod": -0.00011146082353815506,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": 0.008260594593412739,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "coin_2.wav",
+            "seconds": 0.125
+          },
+          {
+            "preset": "coin",
+            "seed": 748267,
+            "style": "retro",
+            "variation": 2,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.035997344440168944,
+              "env_punch": 0.49969407344109507,
+              "env_decay": 0.27636290110823564,
+              "base_freq": 0.5707658551266759,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": -0.003520045480093194,
+              "vib_strength": 0.0,
+              "vib_speed": 0.01597251317419071,
+              "arp_mod": -0.040313376998745966,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": -0.017529023093750762,
+              "repeat_speed": 0.0,
+              "pha_offset": -0.023264064965692034,
+              "pha_ramp": -0.0006348801875806082,
+              "lpf_freq": 0.9676990315680061,
+              "lpf_ramp": 0.0005652320977549072,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "coin_3.wav",
+            "seconds": 0.176
+          },
+          {
+            "preset": "coin",
+            "seed": 748267,
+            "style": "retro",
+            "variation": 3,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.035997344440168944,
+              "env_punch": 0.49969407344109507,
+              "env_decay": 0.27636290110823564,
+              "base_freq": 0.5707658551266759,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.04270113636623568,
+              "freq_dramp": 0.0012405579106377213,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": 0.027857804865660543,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 0.9524942307420827,
+              "lpf_ramp": -0.046220863439149024,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "coin_4.wav",
+            "seconds": 0.176
+          }
+        ]
+      },
+      "created": "2026-11-07T00:00:20",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "ui",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\ui_1.wav",
+        "assets\\sfx\\ui_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "ui_click",
+            "seed": 673909,
+            "style": "retro",
+            "variation": 0,
+            "file": "ui_1.wav",
+            "seconds": 0.03
+          },
+          {
+            "preset": "ui_click",
+            "seed": 673909,
+            "style": "retro",
+            "variation": 1,
+            "file": "ui_2.wav",
+            "seconds": 0.03
+          }
+        ]
+      },
+      "created": "2026-11-07T00:00:20",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "powerup",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\powerup_1.wav",
+        "assets\\sfx\\powerup_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "powerup",
+            "seed": 653642,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.28518821229255853,
+              "env_punch": 0.0,
+              "env_decay": 0.12856186475956838,
+              "base_freq": 0.2511147892557009,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.17636197155886263,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.460334792830595,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "powerup_1.wav",
+            "seconds": 0.222
+          },
+          {
+            "preset": "powerup",
+            "seed": 653642,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.010075363928508732,
+              "env_sustain": 0.23569561921314022,
+              "env_punch": 0.0,
+              "env_decay": 0.12028418879883952,
+              "base_freq": 0.2511147892557009,
+              "freq_limit": 0.007253126377312236,
+              "freq_ramp": 0.17636197155886263,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0480695001370051,
+              "duty": 0.4501406670694177,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.03616544275210068,
+              "pha_offset": -0.011040936681149173,
+              "pha_ramp": 0.045640586473169945,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.04120548018440416,
+              "lpf_resonance": 0.019109093202598085,
+              "hpf_freq": 0.02748466488415101,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "powerup_2.wav",
+            "seconds": 0.159
+          }
+        ]
+      },
+      "created": "2026-11-07T00:00:20",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "magic",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\magic_1.wav",
+        "assets\\sfx\\magic_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "magic",
+            "seed": 243486,
+            "style": "retro",
+            "variation": 0,
+            "file": "magic_1.wav",
+            "seconds": 2.26
+          },
+          {
+            "preset": "magic",
+            "seed": 243486,
+            "style": "retro",
+            "variation": 1,
+            "file": "magic_2.wav",
+            "seconds": 2.26
+          }
+        ]
+      },
+      "created": "2026-11-07T00:00:21",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "pickup",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\pickup_1.wav",
+        "assets\\sfx\\pickup_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "pickup",
+            "seed": 622273,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.009784485340761718,
+              "env_punch": 0.5098776774721101,
+              "env_decay": 0.18794181220034295,
+              "base_freq": 0.6457077256631871,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.45404341020582717,
+              "arp_speed": 0.5026411800148123,
+              "duty": 0.0,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "pickup_1.wav",
+            "seconds": 0.08
+          },
+          {
+            "preset": "pickup",
+            "seed": 622273,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.009784485340761718,
+              "env_punch": 0.46856284233326595,
+              "env_decay": 0.1788515752864847,
+              "base_freq": 0.6457077256631871,
+              "freq_limit": 0.0,
+              "freq_ramp": -0.023307725253615432,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.45404341020582717,
+              "arp_speed": 0.4577862104531819,
+              "duty": 0.0,
+              "duty_ramp": -0.003894185122623496,
+              "repeat_speed": 0.0,
+              "pha_offset": -0.049565651159291936,
+              "pha_ramp": -0.04825698736933196,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0033971777548833376,
+              "hpf_freq": 0.0,
+              "hpf_ramp": 0.03941435344903395,
+              "sound_vol": 0.5
+            },
+            "file": "pickup_2.wav",
+            "seconds": 0.073
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:10",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "thud",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\thud_1.wav",
+        "assets\\sfx\\thud_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "thud",
+            "seed": 418031,
+            "style": "retro",
+            "variation": 0,
+            "file": "thud_1.wav",
+            "seconds": 0.45
+          },
+          {
+            "preset": "thud",
+            "seed": 418031,
+            "style": "retro",
+            "variation": 1,
+            "file": "thud_2.wav",
+            "seconds": 0.45
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:10",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_penguin",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_penguin_1.wav",
+        "assets\\sfx\\chirp_penguin_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 751840,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.19810462546636098,
+              "env_punch": 0.0,
+              "env_decay": 0.0014317478789419137,
+              "base_freq": 880,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.08370774378898509,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_penguin_1.wav",
+            "seconds": 0.089
+          },
+          {
+            "preset": "blip",
+            "seed": 751840,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.20632770488711283,
+              "env_punch": 0.0,
+              "env_decay": 0.0014317478789419137,
+              "base_freq": 880,
+              "freq_limit": 0.034614706933306524,
+              "freq_ramp": -0.04459639328740609,
+              "freq_dramp": -0.007013600522623641,
+              "vib_strength": 0.0,
+              "vib_speed": 0.04319023836481621,
+              "arp_mod": -0.025623392370421383,
+              "arp_speed": 0.0,
+              "duty": 0.08370774378898509,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0384350071347679,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_penguin_2.wav",
+            "seconds": 0.097
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:10",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_monkey",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_monkey_1.wav",
+        "assets\\sfx\\chirp_monkey_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 929234,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.17586437081278003,
+              "env_punch": 0.0,
+              "env_decay": 0.17970580637519115,
+              "base_freq": 660,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.09335455128722134,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_monkey_1.wav",
+            "seconds": 0.143
+          },
+          {
+            "preset": "blip",
+            "seed": 929234,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.17586437081278003,
+              "env_punch": 0.007533507122395436,
+              "env_decay": 0.17970580637519115,
+              "base_freq": 660,
+              "freq_limit": 0.02173767086895881,
+              "freq_ramp": -0.0469903306712592,
+              "freq_dramp": -0.030605248938828124,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.09335455128722134,
+              "duty_ramp": -0.016110618206636187,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0017506059591058665,
+              "pha_ramp": -0.027988969270846754,
+              "lpf_freq": 1.0,
+              "lpf_ramp": -0.005942041108375297,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.08027881932619631,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_monkey_2.wav",
+            "seconds": 0.143
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:11",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_panda",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_panda_1.wav",
+        "assets\\sfx\\chirp_panda_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 182421,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 1,
+              "env_attack": 0.0,
+              "env_sustain": 0.10115902151533583,
+              "env_punch": 0.0,
+              "env_decay": 0.16161085340802445,
+              "base_freq": 440,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_panda_1.wav",
+            "seconds": 0.082
+          },
+          {
+            "preset": "blip",
+            "seed": 182421,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 1,
+              "env_attack": 0.0,
+              "env_sustain": 0.051386601354263844,
+              "env_punch": 0.0,
+              "env_decay": 0.16161085340802445,
+              "base_freq": 440,
+              "freq_limit": 0.03308327422123679,
+              "freq_ramp": -0.045019204386033546,
+              "freq_dramp": -0.03826955609076507,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": -0.03776363878042254,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": -0.029965805056296636,
+              "repeat_speed": 0.03288338523346869,
+              "pha_offset": -0.04348172844623047,
+              "pha_ramp": 0.0360018789719314,
+              "lpf_freq": 1.0,
+              "lpf_ramp": -0.02448831492119005,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.05394787710749491,
+              "hpf_ramp": -0.021119126121304146,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_panda_2.wav",
+            "seconds": 0.065
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:11",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_lion",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_lion_1.wav",
+        "assets\\sfx\\chirp_lion_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 162967,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.1623408678336291,
+              "env_punch": 0.0,
+              "env_decay": 0.4,
+              "base_freq": 180,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.48149255901602417,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_lion_1.wav",
+            "seconds": 0.423
+          },
+          {
+            "preset": "blip",
+            "seed": 162967,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.1623408678336291,
+              "env_punch": 0.0,
+              "env_decay": 0.4,
+              "base_freq": 180,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": -0.005416261717527758,
+              "vib_strength": 0.04062862617003436,
+              "vib_speed": 0.008086279400019061,
+              "arp_mod": 0.0003555254428646362,
+              "arp_speed": 0.0,
+              "duty": 0.4883410261702534,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.028019735003149984,
+              "pha_offset": 0.0,
+              "pha_ramp": -0.014429141872722796,
+              "lpf_freq": 0.9726166898554882,
+              "lpf_ramp": -0.02703925990039189,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.05582831850128213,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_lion_2.wav",
+            "seconds": 0.423
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:25",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_giraffe",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_giraffe_1.wav",
+        "assets\\sfx\\chirp_giraffe_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 46601,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.16982131392967853,
+              "env_punch": 0.0,
+              "env_decay": 0.1733672173193899,
+              "base_freq": 520,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.006623438338533094,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_giraffe_1.wav",
+            "seconds": 0.134
+          },
+          {
+            "preset": "blip",
+            "seed": 46601,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.2049518736046022,
+              "env_punch": 0.0,
+              "env_decay": 0.18531475345166232,
+              "base_freq": 520,
+              "freq_limit": 0.026392442468086336,
+              "freq_ramp": -0.029833650081009556,
+              "freq_dramp": -0.026986176892027494,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.042565276437397145,
+              "arp_speed": 0.0,
+              "duty": 0.0,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": -0.022341771033020888,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.00828844091055577,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_giraffe_2.wav",
+            "seconds": 0.173
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:25",
+      "license": "CC0-1.0 (procedurally generated)"
+    },
+    {
+      "name": "chirp_elephant",
+      "kind": "sfx",
+      "files": [
+        "assets\\sfx\\chirp_elephant_1.wav",
+        "assets\\sfx\\chirp_elephant_2.wav"
+      ],
+      "recipe": {
+        "tool": "forge_sfx",
+        "engine": "synth",
+        "variants": [
+          {
+            "preset": "blip",
+            "seed": 995949,
+            "style": "retro",
+            "variation": 0,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.0,
+              "env_sustain": 0.16818065262236476,
+              "env_punch": 0.0,
+              "env_decay": 0.45,
+              "base_freq": 120,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.0,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0,
+              "arp_speed": 0.0,
+              "duty": 0.447406630282312,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": 0.0,
+              "pha_ramp": 0.0,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.0,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_elephant_1.wav",
+            "seconds": 0.523
+          },
+          {
+            "preset": "blip",
+            "seed": 995949,
+            "style": "retro",
+            "variation": 1,
+            "sfxr": {
+              "wave_type": 0,
+              "env_attack": 0.01099147127079101,
+              "env_sustain": 0.16818065262236476,
+              "env_punch": 0.041675319928565935,
+              "env_decay": 0.45,
+              "base_freq": 120,
+              "freq_limit": 0.0,
+              "freq_ramp": 0.0,
+              "freq_dramp": 0.0,
+              "vib_strength": 0.011873064688995384,
+              "vib_speed": 0.0,
+              "arp_mod": 0.0022313602199691904,
+              "arp_speed": 0.019402510550864352,
+              "duty": 0.4277175961892233,
+              "duty_ramp": 0.0,
+              "repeat_speed": 0.0,
+              "pha_offset": -0.014663279788906268,
+              "pha_ramp": -0.03942686622812086,
+              "lpf_freq": 1.0,
+              "lpf_ramp": 0.0044956742605440705,
+              "lpf_resonance": 0.0,
+              "hpf_freq": 0.1,
+              "hpf_ramp": 0.04209009795287627,
+              "sound_vol": 0.5
+            },
+            "file": "chirp_elephant_2.wav",
+            "seconds": 0.524
+          }
+        ]
+      },
+      "created": "2026-11-07T00:01:27",
+      "license": "CC0-1.0 (procedurally generated)"
+    }
+  ]
+}

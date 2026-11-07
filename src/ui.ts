@@ -11,6 +11,7 @@ export type ShopAction =
 
 export interface UiCallbacks {
   onShopAction(a: ShopAction): void;
+  onCategory(k: string | null): void;
   onToggleAudio(which: 'music' | 'sfx'): void;
 }
 
@@ -66,11 +67,16 @@ export class Ui {
   }
 
   private toggleCategory(k: string): void {
-    if (this.openCategory === k) { this.closeShop(); return; }
+    if (this.openCategory === k) {
+      this.closeShop();
+      this.cb.onCategory(null);
+      return;
+    }
     this.openCategory = k;
     for (const b of this.barEl.querySelectorAll('.bigbtn')) {
       b.classList.toggle('active', (b as HTMLElement).dataset.k === k);
     }
+    this.cb.onCategory(k);
   }
 
   closeShop(): void {
