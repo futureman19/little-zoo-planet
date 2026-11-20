@@ -1,0 +1,226 @@
+{
+  "checks": [
+    {
+      "name": "placement thud buffers fetched",
+      "passed": true
+    },
+    {
+      "name": "pond valid ghost",
+      "passed": true
+    },
+    {
+      "name": "pond native placement exact price",
+      "passed": true
+    },
+    {
+      "name": "pond placement sound started",
+      "passed": true
+    },
+    {
+      "name": "pond mesh starts pop",
+      "passed": true
+    },
+    {
+      "name": "pond pop advances",
+      "passed": true
+    },
+    {
+      "name": "pond occupied ghost refused",
+      "passed": true
+    },
+    {
+      "name": "pond occupied placement unchanged",
+      "passed": true
+    },
+    {
+      "name": "pond one-tile geometry and solid shadows",
+      "passed": true
+    },
+    {
+      "name": "slide valid ghost",
+      "passed": true
+    },
+    {
+      "name": "slide native placement exact price",
+      "passed": true
+    },
+    {
+      "name": "slide placement sound started",
+      "passed": true
+    },
+    {
+      "name": "slide mesh starts pop",
+      "passed": true
+    },
+    {
+      "name": "slide pop advances",
+      "passed": true
+    },
+    {
+      "name": "slide occupied ghost refused",
+      "passed": true
+    },
+    {
+      "name": "slide occupied placement unchanged",
+      "passed": true
+    },
+    {
+      "name": "slide one-tile geometry and solid shadows",
+      "passed": true
+    },
+    {
+      "name": "fountain valid ghost",
+      "passed": true
+    },
+    {
+      "name": "fountain native placement exact price",
+      "passed": true
+    },
+    {
+      "name": "fountain placement sound started",
+      "passed": true
+    },
+    {
+      "name": "fountain mesh starts pop",
+      "passed": true
+    },
+    {
+      "name": "fountain pop advances",
+      "passed": true
+    },
+    {
+      "name": "fountain occupied ghost refused",
+      "passed": true
+    },
+    {
+      "name": "fountain occupied placement unchanged",
+      "passed": true
+    },
+    {
+      "name": "fountain one-tile geometry and solid shadows",
+      "passed": true
+    },
+    {
+      "name": "habitat occupancy refused by sim",
+      "passed": true
+    },
+    {
+      "name": "insufficient funds refuse all new kinds",
+      "passed": true
+    },
+    {
+      "name": "unknown and out-of-bounds kinds refused",
+      "passed": true
+    },
+    {
+      "name": "desktop exactly seven decor cards",
+      "passed": true
+    },
+    {
+      "name": "desktop tree visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "desktop flower visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "desktop rock visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "desktop balloons visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "desktop pond visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "desktop slide visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "desktop fountain visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone exactly seven decor cards",
+      "passed": true
+    },
+    {
+      "name": "phone tree visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone flower visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone rock visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone balloons visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone pond visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone slide visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "phone fountain visible card contents and 48px target",
+      "passed": true
+    },
+    {
+      "name": "four decorations does not claim five-decor",
+      "passed": true
+    },
+    {
+      "name": "fifth decor claims exactly 75 coins",
+      "passed": true
+    },
+    {
+      "name": "milestone routes 80 confetti sprites and text",
+      "passed": true
+    },
+    {
+      "name": "milestone not paid twice",
+      "passed": true
+    },
+    {
+      "name": "v1 save/reload preserves decorations and claims",
+      "passed": true
+    },
+    {
+      "name": "all restored decorations have meshes",
+      "passed": true
+    },
+    {
+      "name": "handcrafted legacy zoo intact and missing fields normalized",
+      "passed": true
+    },
+    {
+      "name": "legacy first-decor retained and five-decor initially unclaimed",
+      "passed": true
+    },
+    {
+      "name": "legacy claim not repaid after new decoration",
+      "passed": true
+    },
+    {
+      "name": "zero runtime exceptions",
+      "passed": true
+    }
+  ],
+  "passed": 54,
+  "errors": [],
+  "audio": {
+    "thud_0.wav": 200,
+    "thud_1.wav": 200
+  }
+}

@@ -38,7 +38,7 @@ export const SPECIES: readonly SpeciesDef[] = [
 export const COSTS = {
   habitat: 100,
   feed: 5,
-  decor: { tree: 20, flower: 10, rock: 15, balloons: 40 } as Record<string, number>,
+  decor: { tree: 20, flower: 10, rock: 15, balloons: 40, pond: 60, slide: 80, fountain: 90 } as Record<string, number>,
 };
 
 export const DECOR: readonly { id: string; name: string; emoji: string }[] = [
@@ -46,6 +46,9 @@ export const DECOR: readonly { id: string; name: string; emoji: string }[] = [
   { id: 'flower',   name: 'Flower',   emoji: '🌷' },
   { id: 'rock',     name: 'Rock',     emoji: '🪨' },
   { id: 'balloons', name: 'Balloons', emoji: '🎈' },
+  { id: 'pond',     name: 'Pond',     emoji: '💧' },
+  { id: 'slide',    name: 'Slide',    emoji: '🛝' },
+  { id: 'fountain', name: 'Fountain', emoji: '⛲' },
 ];
 
 export const ECON = {
@@ -90,6 +93,7 @@ export const MILESTONES: readonly MilestoneDef[] = [
   { id: 'five-species', text: 'Adopt 5 different animals', reward: 150, test: (s) => s.speciesOwned >= 5 },
   { id: 'ten-animals',  text: 'Adopt 10 animals',         reward: 200, test: (s) => s.animalCount >= 10 },
   { id: 'all-species',  text: 'Adopt all 12 animals!',    reward: 400, test: (s) => s.speciesOwned >= 12 },
+  { id: 'five-decor', text: 'Place 5 decorations', reward: 75, test: (s) => s.decorCount >= 5 },
 ];
 
 export const PALETTE = {

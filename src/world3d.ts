@@ -191,6 +191,56 @@ export class World3D {
         });
         break;
       }
+      case 'pond': {
+        const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.84, 0.88, 0.18, 12), mat(0xe8d8b0));
+        rim.position.y = 0.13; rim.castShadow = true; g.add(rim);
+        const water = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.04, 12), mat(PALETTE.water, { roughness: 0.35 }));
+        water.position.y = 0.24; g.add(water);
+        const lily = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.17, 0.025, 7), mat(0x6bcb77));
+        lily.position.set(-0.3, 0.275, 0.2); lily.castShadow = true; g.add(lily);
+        const bloom = new THREE.Mesh(new THREE.IcosahedronGeometry(0.09, 0), mat(0xff9fba));
+        bloom.position.set(-0.3, 0.34, 0.2); bloom.castShadow = true; g.add(bloom);
+        break;
+      }
+      case 'slide': {
+        const yellow = mat(0xffd93d), coral = mat(0xff6b6b), teal = mat(0x48b7b0);
+        // Chute descends toward +Z; the ladder and landing stay inside one tile.
+        const chute = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.09, 1.3), yellow);
+        chute.rotation.x = Math.PI / 6;
+        chute.position.set(0, 0.59, 0.12); chute.castShadow = true; g.add(chute);
+        for (const x of [-0.36, 0.36]) {
+          const side = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.18, 1.3), coral);
+          side.rotation.x = Math.PI / 6;
+          side.position.set(x, 0.69, 0.12); side.castShadow = true; g.add(side);
+          const post = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1.22, 0.1), teal);
+          post.position.set(x, 0.65, -0.52); post.castShadow = true; g.add(post);
+        }
+        for (const y of [0.25, 0.5, 0.75, 1]) {
+          const rung = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.08, 0.18), yellow);
+          rung.position.set(0, y, -0.52); rung.castShadow = true; g.add(rung);
+        }
+        const landing = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.09, 0.25), yellow);
+        landing.position.set(0, 0.25, 0.77); landing.castShadow = true; g.add(landing);
+        break;
+      }
+      case 'fountain': {
+        const stone = mat(0xffe4b5), waterMat = mat(PALETTE.water, { roughness: 0.3 });
+        const basin = new THREE.Mesh(new THREE.CylinderGeometry(0.84, 0.72, 0.25, 12), stone);
+        basin.position.y = 0.18; basin.castShadow = true; g.add(basin);
+        const pool = new THREE.Mesh(new THREE.CylinderGeometry(0.73, 0.73, 0.04, 12), waterMat);
+        pool.position.y = 0.325; g.add(pool);
+        const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.21, 0.65, 8), stone);
+        stem.position.y = 0.64; stem.castShadow = true; g.add(stem);
+        const tier = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.26, 0.16, 10), stone);
+        tier.position.y = 1; tier.castShadow = true; g.add(tier);
+        const upperWater = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.03, 10), waterMat);
+        upperWater.position.y = 1.1; g.add(upperWater);
+        const jet = new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.55, 8), waterMat);
+        jet.position.y = 1.38; g.add(jet);
+        const drop = new THREE.Mesh(new THREE.SphereGeometry(0.1, 7, 5), waterMat);
+        drop.position.y = 1.75; g.add(drop);
+        break;
+      }
     }
     this.scene.add(g);
     this.decorMeshes.set(d.id, g);
