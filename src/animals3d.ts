@@ -167,6 +167,61 @@ const builders: Record<string, (g: THREE.Group) => void> = {
     const tail = cone(0.05, 0.14, 0x8fd07a, 5); tail.rotation.x = -Math.PI / 2 - 0.3; tail.position.set(0, 0.14, -0.44); g.add(tail);
   },
 
+  zebra(g) {
+    const cream = 0xf5f0e0, stripe = 0x39313b;
+    const body = box(0.58, 0.48, 0.8, cream); body.position.y = 0.64; g.add(body);
+    // Raised bands wrap the toy-like body, avoiding coplanar stripe faces.
+    for (const z of [-0.28, -0.04, 0.2]) {
+      const band = box(0.596, 0.496, 0.075, stripe); band.position.set(0, 0.64, z); g.add(band);
+    }
+    const neck = box(0.24, 0.46, 0.24, cream); neck.position.set(0, 0.98, 0.26); g.add(neck);
+    const mane = box(0.08, 0.5, 0.07, stripe); mane.position.set(0, 1, 0.12); g.add(mane);
+    const head = box(0.3, 0.28, 0.4, cream); head.position.set(0, 1.24, 0.36); g.add(head);
+    const muzzle = box(0.3, 0.18, 0.17, 0x8c7880); muzzle.position.set(0, 1.18, 0.59); g.add(muzzle);
+    eyes(g, 0.115, 1.3, 0.565, 0.04);
+    for (const s of [-1, 1]) {
+      const ear = cone(0.07, 0.22, cream, 5); ear.position.set(s * 0.12, 1.46, 0.28); g.add(ear);
+      for (const z of [-0.26, 0.26]) {
+        const leg = cyl(0.055, 0.06, 0.44, cream); leg.position.set(s * 0.2, 0.24, z); g.add(leg);
+        const hoof = box(0.13, 0.1, 0.15, stripe); hoof.position.set(s * 0.2, 0.05, z); g.add(hoof);
+      }
+    }
+    const tail = cyl(0.025, 0.025, 0.3, stripe); tail.position.set(0, 0.5, -0.48); tail.rotation.x = -0.4; g.add(tail);
+  },
+
+  hippo(g) {
+    const skin = 0xa68ca6;
+    const body = sphere(0.46, skin); body.scale.set(1, 0.9, 1.12); body.position.y = 0.53; g.add(body);
+    const head = sphere(0.32, skin); head.position.set(0, 0.7, 0.35); g.add(head);
+    const muzzle = sphere(0.33, 0xc3a0b5); muzzle.scale.set(1.1, 0.64, 0.9); muzzle.position.set(0, 0.55, 0.53); g.add(muzzle);
+    for (const s of [-1, 1]) {
+      const ear = sphere(0.075, skin); ear.position.set(s * 0.24, 0.93, 0.28); g.add(ear);
+      const nostril = sphere(0.035, 0x715b77, 5, 4); nostril.position.set(s * 0.13, 0.68, 0.74); g.add(nostril);
+      for (const z of [-0.26, 0.26]) {
+        const leg = cyl(0.1, 0.11, 0.3, 0x927b96); leg.position.set(s * 0.28, 0.15, z); g.add(leg);
+      }
+    }
+    eyes(g, 0.17, 0.85, 0.59, 0.045);
+    const tail = cone(0.045, 0.2, skin); tail.rotation.x = -Math.PI / 2; tail.position.set(0, 0.5, -0.55); g.add(tail);
+  },
+
+  flamingo(g) {
+    const pink = 0xf48fa6;
+    const body = sphere(0.29, pink); body.scale.set(1, 0.85, 1.3); body.position.y = 0.93; g.add(body);
+    for (const s of [-1, 1]) {
+      const leg = cyl(0.028, 0.035, 0.78, 0xd98577, 6); leg.position.set(s * 0.11, 0.42, 0); g.add(leg);
+      const foot = box(0.11, 0.05, 0.2, 0xd98577); foot.position.set(s * 0.11, 0.025, 0.06); g.add(foot);
+      const wing = sphere(0.18, 0xe97599); wing.scale.set(0.35, 0.8, 1.35); wing.position.set(s * 0.26, 0.94, -0.04); g.add(wing);
+    }
+    // Two overlapping neck segments suggest the flamingo's gentle S curve.
+    const lower = cyl(0.065, 0.09, 0.4, pink); lower.position.set(0, 1.19, 0.2); lower.rotation.x = 0.35; g.add(lower);
+    const upper = cyl(0.065, 0.065, 0.34, pink); upper.position.set(0, 1.51, 0.2); upper.rotation.x = -0.35; g.add(upper);
+    const head = sphere(0.15, pink); head.position.set(0, 1.69, 0.27); g.add(head);
+    const beak = cone(0.075, 0.2, 0xf7d3b0, 6); beak.rotation.x = Math.PI / 2; beak.position.set(0, 1.65, 0.44); g.add(beak);
+    const tip = cone(0.055, 0.14, 0x39313b, 6); tip.rotation.x = Math.PI / 2 + 0.65; tip.position.set(0, 1.6, 0.53); g.add(tip);
+    eyes(g, 0.075, 1.74, 0.385, 0.03);
+  },
+
   elephant(g) {
     const body = sphere(0.55, 0x9aa3ad); body.scale.set(1.15, 1, 1); body.position.y = 0.75; g.add(body);
     const head = sphere(0.34, 0x9aa3ad); head.position.set(0, 1.05, 0.55); g.add(head);
