@@ -222,6 +222,65 @@ const builders: Record<string, (g: THREE.Group) => void> = {
     eyes(g, 0.075, 1.74, 0.385, 0.03);
   },
 
+  tiger(g) {
+    const orange = 0xe99b46, stripe = 0x49352d, cream = 0xffe7bc;
+    const body = box(0.56, 0.44, 0.7, orange); body.position.y = 0.49; g.add(body);
+    // Raised bands stay clear of the body faces, like the zebra's toy stripes.
+    for (const z of [-0.24, -0.02, 0.2]) {
+      const band = box(0.576, 0.456, 0.065, stripe); band.position.set(0, 0.49, z); g.add(band);
+    }
+    const head = sphere(0.26, orange); head.position.set(0, 0.82, 0.29); g.add(head);
+    for (const s of [-1, 1]) {
+      const ear = sphere(0.075, stripe); ear.position.set(s * 0.18, 1.01, 0.26); g.add(ear);
+      const inner = sphere(0.046, cream); inner.position.set(s * 0.18, 1.02, 0.31); g.add(inner);
+      const cheek = sphere(0.1, cream); cheek.scale.set(1, 0.8, 0.7); cheek.position.set(s * 0.075, 0.74, 0.5); g.add(cheek);
+      const mark = box(0.09, 0.035, 0.04, stripe); mark.position.set(s * 0.2, 0.82, 0.45); mark.rotation.z = s * 0.3; g.add(mark);
+      for (const z of [-0.23, 0.23]) {
+        const leg = cyl(0.07, 0.08, 0.3, orange); leg.position.set(s * 0.19, 0.15, z); g.add(leg);
+        const paw = sphere(0.09, cream); paw.scale.y = 0.55; paw.position.set(s * 0.19, 0.05, z + 0.025); g.add(paw);
+      }
+    }
+    eyes(g, 0.1, 0.89, 0.49);
+    const nose = sphere(0.04, stripe); nose.position.set(0, 0.79, 0.565); g.add(nose);
+    const tail = cyl(0.035, 0.045, 0.36, orange); tail.rotation.x = -1; tail.position.set(0, 0.53, -0.48); g.add(tail);
+    const tip = sphere(0.05, stripe); tip.position.set(0, 0.63, -0.63); g.add(tip);
+  },
+
+  koala(g) {
+    const fur = 0xa69b96, light = 0xeadfd1, dark = 0x51433f;
+    const body = sphere(0.31, fur); body.scale.set(1, 1.15, 0.9); body.position.y = 0.4; g.add(body);
+    const belly = sphere(0.22, light); belly.scale.set(0.8, 1, 0.5); belly.position.set(0, 0.4, 0.2); g.add(belly);
+    const head = sphere(0.25, fur); head.position.set(0, 0.82, 0.07); g.add(head);
+    for (const s of [-1, 1]) {
+      const ear = sphere(0.15, fur); ear.scale.z = 0.7; ear.position.set(s * 0.27, 0.96, 0.04); g.add(ear);
+      const inner = sphere(0.105, light); inner.scale.z = 0.4; inner.position.set(s * 0.28, 0.97, 0.125); g.add(inner);
+      const arm = sphere(0.1, fur); arm.scale.set(0.8, 1.6, 0.9); arm.position.set(s * 0.29, 0.42, 0.08); arm.rotation.z = s * 0.2; g.add(arm);
+      const foot = sphere(0.115, fur); foot.scale.set(1, 0.7, 1.2); foot.position.set(s * 0.15, 0.08, 0.08); g.add(foot);
+    }
+    eyes(g, 0.11, 0.87, 0.28, 0.035);
+    const nose = sphere(0.08, dark); nose.scale.set(0.8, 1.3, 0.65); nose.position.set(0, 0.81, 0.32); g.add(nose);
+  },
+
+  crocodile(g) {
+    const green = 0x83a957, ridge = 0x57773d, cream = 0xd9d69a;
+    const body = sphere(0.34, green); body.scale.set(1, 0.6, 1.35); body.position.y = 0.27; g.add(body);
+    const jaw = box(0.34, 0.09, 0.43, cream); jaw.position.set(0, 0.19, 0.53); g.add(jaw);
+    const snout = box(0.36, 0.14, 0.44, green); snout.position.set(0, 0.3, 0.52); g.add(snout);
+    const tail = cone(0.17, 0.48, green); tail.rotation.x = -Math.PI / 2; tail.scale.z = 0.65; tail.position.set(0, 0.23, -0.56); g.add(tail);
+    for (const z of [-0.48, -0.27, -0.06, 0.15]) {
+      const bump = cone(0.065, 0.12, ridge, 5); bump.position.set(0, z < -0.4 ? 0.34 : 0.47, z); g.add(bump);
+    }
+    for (const s of [-1, 1]) {
+      const eyeBase = sphere(0.085, green); eyeBase.position.set(s * 0.13, 0.43, 0.36); g.add(eyeBase);
+      const nostril = sphere(0.022, ridge, 5, 4); nostril.position.set(s * 0.11, 0.38, 0.65); g.add(nostril);
+      for (const z of [-0.23, 0.23]) {
+        const leg = sphere(0.11, green); leg.scale.set(1.3, 0.9, 1); leg.position.set(s * 0.24, 0.16, z); g.add(leg);
+        const foot = sphere(0.1, green); foot.scale.set(1.5, 0.6, 1); foot.position.set(s * 0.32, 0.065, z); g.add(foot);
+      }
+    }
+    eyes(g, 0.13, 0.46, 0.42, 0.035);
+  },
+
   elephant(g) {
     const body = sphere(0.55, 0x9aa3ad); body.scale.set(1.15, 1, 1); body.position.y = 0.75; g.add(body);
     const head = sphere(0.34, 0x9aa3ad); head.position.set(0, 1.05, 0.55); g.add(head);

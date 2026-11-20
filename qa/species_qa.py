@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-OUT = Path(__file__).parent / 'evidence'
+OUT = Path(__file__).parent / 'wave2-evidence'
 OUT.mkdir(exist_ok=True)
 checks = []
 def check(name, value):
@@ -18,35 +18,42 @@ with sync_playwright() as p:
     errors, audio = [], {}
     page.on('pageerror', lambda e: errors.append(str(e)))
     page.on('response', lambda r: audio.update({r.url.split('/')[-1]:r.status}) if '/chirp_' in r.url else None)
-    page.goto('http://127.0.0.1:4183')
+    page.goto('http://127.0.0.1:4185')
     page.wait_for_function('!!window.__APP')
     page.click('#playbtn')
     page.wait_for_timeout(1500)
-    for sp in ['zebra','hippo','flamingo']:
+    for sp in ['tiger','koala','crocodile']:
         for variant in [0,1]:
             check(f'{sp} manifest fetch {variant} HTTP 200', audio.get(f'chirp_{sp}_{variant}.wav') == 200)
     page.click('[data-k="animals"]')
-    check('12 adopt cards', page.locator('#shop .card').count() == 12)
-    for sp,emoji in [('zebra','🦓'),('hippo','🦛'),('flamingo','🦩')]:
+    check('15 adopt cards', page.locator('#shop .card').count() == 15)
+    for sp,emoji in [('tiger','🐅'),('koala','🐨'),('crocodile','🐊')]:
         card=page.locator(f'[data-id="{sp}"]')
         check(f'{sp} emoji and locked', emoji in card.inner_text() and 'locked' in card.get_attribute('class'))
     page.click('[data-k="animals"]')
+    for sp,cost,kind,n,freq,speed in [('tiger',300,'lifetimeCoins',1200,150,1.4),('koala',220,'happyCount',10,380,0.7),('crocodile',260,'animalCount',8,110,0.8)]:
+        check(sp+' pinned values and exact unlock boundary',page.evaluate('''([id,cost,kind,n,freq,speed])=>{
+          const s=new __APP.sim.constructor('unlock-boundary'),sp=s.species(id);
+          const values=sp.cost===cost&&sp.unlock.kind===kind&&sp.unlock.n===n&&sp.chirpFreq===freq&&sp.speed===speed;
+          const set=k=>{if(kind==='lifetimeCoins')s.lifetimeCoins=k;else s.animals=Array.from({length:k},()=>({happiness:70}));};
+          set(n-1);const locked=!s.isUnlocked(sp);set(n);return values&&locked&&s.isUnlocked(sp);
+        }''',[sp,cost,kind,n,freq,speed]))
     setup = page.evaluate('''() => {
-      const {sim:s,world:w}=__APP; s.coins=10000; s.lifetimeCoins=1000;
-      for(const [x,z] of [[1,1],[6,1],[11,1],[1,7],[6,7],[11,7]]) {const h=s.placeHabitat(x,z); w.addHabitat(h);}
-      for(let i=0;i<8;i++) s.adoptAnimal('penguin',s.habitats[Math.floor(i/3)].id);
-      __APP.pump(1,0); return s.happyCount()===8;
+      const {sim:s,world:w}=__APP; s.coins=10000; s.lifetimeCoins=1200;
+      for(const [x,z] of [[1,1],[6,1],[11,1],[1,7],[6,7],[11,7],[1,12]]) {const h=s.placeHabitat(x,z); w.addHabitat(h);}
+      for(let i=0;i<10;i++) s.adoptAnimal('penguin',s.habitats[Math.floor(i/3)].id);
+      __APP.pump(1,0); return s.happyCount()===10;
     }''')
-    check('seeded eight happy animals satisfy unlocks',setup)
-    for index,sp in enumerate(['zebra','hippo','flamingo']):
-        check(sp+' adopt',page.evaluate('''([sp,i])=>{const s=__APP.sim; const a=s.adoptAnimal(sp,s.habitats[i+3].id); if(!a)return false; const h=s.habitats[i+3]; a.x=a.tx=-16+h.gx*2+4; a.z=a.tz=-16+h.gz*2+4; a.pauseT=9999; __APP.pump(1,0);return true;}''',[sp,index]))
+    check('seeded ten happy animals satisfy unlocks',setup)
+    for index,sp in enumerate(['tiger','koala','crocodile']):
+        check(sp+' adopt',page.evaluate('''([sp,i])=>{const s=__APP.sim; const a=s.adoptAnimal(sp,s.habitats[i+4].id); if(!a)return false; const h=s.habitats[i+4]; a.x=a.tx=-16+h.gx*2+4; a.z=a.tz=-16+h.gz*2+4; a.pauseT=9999; __APP.pump(1,0);return true;}''',[sp,index]))
     # Freeze all wander and clear adoption FX before interaction checks.
     page.evaluate('''()=>{__APP.sim.animals.forEach(a=>a.pauseT=9999);__APP.pump(120,1/60);}''')
     def focus(sp):
-        return page.evaluate('''sp=>{const app=__APP,a=app.sim.animals.find(a=>a.speciesId===sp); app.controls.enableDamping=false;app.controls.minDistance=2;app.controls.target.set(a.x,0.6,a.z);app.camera.position.set(a.x+3,3.3,a.z+5);const m=app.world.animalScreenTargets().get(a.id);m.rotation.y=0;app.renderOnce();const v=m.position.clone();v.y=sp==='flamingo'?0.95:0.65;v.project(app.camera);return {x:(v.x+1)*innerWidth/2,y:(1-v.y)*innerHeight/2};}''',sp)
+        return page.evaluate('''sp=>{const app=__APP,a=app.sim.animals.find(a=>a.speciesId===sp); app.controls.enableDamping=false;app.controls.minDistance=2;app.controls.target.set(a.x,0.6,a.z);app.camera.position.set(a.x+3,3.3,a.z+5);const m=app.world.animalScreenTargets().get(a.id);m.rotation.y=0;app.renderOnce();const v=m.position.clone();v.y=sp==='crocodile'?0.3:0.65;v.project(app.camera);return {x:(v.x+1)*innerWidth/2,y:(1-v.y)*innerHeight/2};}''',sp)
     for viewport in [('desktop',1440,900),('phone',390,844)]:
         label,w,h=viewport; page.set_viewport_size({'width':w,'height':h}); page.wait_for_timeout(200)
-        for sp in ['zebra','hippo','flamingo']:
+        for sp in ['tiger','koala','crocodile']:
             xy=focus(sp)
             page.screenshot(path=str(OUT/f'{label}-{sp}.png'))
             if label=='desktop':
@@ -60,20 +67,21 @@ with sync_playwright() as p:
                 check(sp+' visible spin/hop',page.evaluate('''sp=>{const a=__APP.sim.animals.find(a=>a.speciesId===sp),m=__APP.world.animalScreenTargets().get(a.id);return m.rotation.y>2 && m.position.y>0.4;}''',sp))
                 page.screenshot(path=str(OUT/f'{label}-{sp}-trick.png'))
                 page.evaluate('__APP.pump(100,1/60)')
-            elif sp=='flamingo':
-                page.evaluate('''()=>{const a=__APP.sim.animals.find(a=>a.speciesId==='flamingo');a.trickCd=0;__APP.sim.trickAnimal(a.id);__APP.pump(15,1/60);__APP.renderOnce();}''')
+            elif sp=='crocodile':
+                page.evaluate('''()=>{const a=__APP.sim.animals.find(a=>a.speciesId==='crocodile');a.trickCd=0;__APP.sim.trickAnimal(a.id);__APP.pump(15,1/60);__APP.renderOnce();}''')
                 page.screenshot(path=str(OUT/f'{label}-trick.png'))
         page.click('[data-k="animals"]')
-        for sp in ['zebra','hippo','flamingo']:
+        for sp in ['tiger','koala','crocodile']:
             check(label+' '+sp+' unlocked card', 'locked' not in page.locator(f'[data-id="{sp}"]').get_attribute('class'))
+        check(label+' adopt cards meet 48px targets',page.locator('#shop .card').evaluate_all('(cards)=>cards.every(c=>{const r=c.getBoundingClientRect();return r.width>=48&&r.height>=48;})'))
         # Existing horizontal carousel: capture every card in successive scroll positions.
-        for sp in ['penguin','panda','giraffe','fox','turtle','flamingo']:
+        for sp in ['penguin','panda','giraffe','fox','turtle','flamingo','tiger','koala','crocodile']:
             page.locator(f'[data-id="{sp}"]').scroll_into_view_if_needed()
             page.screenshot(path=str(OUT/f'{label}-menu-{sp}.png'))
         page.click('[data-k="animals"]')
-    for count in [9,11,12]:
-        check(f'all-species new claim threshold {count}',page.evaluate('''count=>{const s=new __APP.sim.constructor('threshold');s.coins=1000;s.animals=Array.from({length:count},(_,i)=>({id:i+1,speciesId:String(i),happiness:70}));s.feedAnimal(1);return s.milestonesDone.has('all-species')===(count>=12);}''',count))
-    for sp in ['zebra','hippo','flamingo']:
+    for count in [12,14,15]:
+        check(f'all-species new claim threshold {count}',page.evaluate('''count=>{const s=new __APP.sim.constructor('threshold');s.coins=1000;s.animals=Array.from({length:count},(_,i)=>({id:i+1,speciesId:String(i),happiness:70}));s.feedAnimal(1);return s.milestonesDone.has('all-species')===(count>=15);}''',count))
+    for sp in ['tiger','koala','crocodile']:
         check(sp+' mesh fits fence clearance at every heading',page.evaluate('''sp=>{const a=__APP.sim.animals.find(a=>a.speciesId===sp),g=__APP.world.animalScreenTargets().get(a.id);let max=0;g.traverse(m=>{if(!m.isMesh)return;m.updateMatrix();const pos=m.geometry.attributes.position;for(let i=0;i<pos.count;i++){const v=g.position.clone().fromBufferAttribute(pos,i).applyMatrix4(m.matrix);max=Math.max(max,Math.hypot(v.x,v.z));}});return max<0.9;}''',sp))
     before=page.evaluate('''()=>{window.dispatchEvent(new Event('beforeunload'));return JSON.parse(localStorage.getItem('little-zoo-planet-v1'));}''')
     page.reload();page.wait_for_function('!!window.__APP');page.evaluate('__APP.pump(1,0)')

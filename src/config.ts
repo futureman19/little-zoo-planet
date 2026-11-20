@@ -33,6 +33,9 @@ export const SPECIES: readonly SpeciesDef[] = [
   { id: 'zebra',    name: 'Zebra',    emoji: '🦓', cost: 130, unlock: { kind: 'animalCount', n: 4 },     chirpFreq: 590,  speed: 1.3 },
   { id: 'hippo',    name: 'Hippo',    emoji: '🦛', cost: 200, unlock: { kind: 'lifetimeCoins', n: 600 }, chirpFreq: 90,   speed: 0.6 },
   { id: 'flamingo', name: 'Flamingo', emoji: '🦩', cost: 170, unlock: { kind: 'happyCount', n: 8 },      chirpFreq: 700,  speed: 1.0 },
+  { id: 'tiger',    name: 'Tiger',    emoji: '🐅', cost: 300, unlock: { kind: 'lifetimeCoins', n: 1200 }, chirpFreq: 150, speed: 1.4 },
+  { id: 'koala',    name: 'Koala',    emoji: '🐨', cost: 220, unlock: { kind: 'happyCount', n: 10 },      chirpFreq: 380, speed: 0.7 },
+  { id: 'crocodile', name: 'Crocodile', emoji: '🐊', cost: 260, unlock: { kind: 'animalCount', n: 8 },   chirpFreq: 110, speed: 0.8 },
 ];
 
 export const COSTS = {
@@ -92,7 +95,7 @@ export const MILESTONES: readonly MilestoneDef[] = [
   { id: 'rich-zoo',     text: 'Earn 500 coins total',     reward: 150, test: (s) => s.lifetimeCoins >= 500 },
   { id: 'five-species', text: 'Adopt 5 different animals', reward: 150, test: (s) => s.speciesOwned >= 5 },
   { id: 'ten-animals',  text: 'Adopt 10 animals',         reward: 200, test: (s) => s.animalCount >= 10 },
-  { id: 'all-species',  text: 'Adopt all 12 animals!',    reward: 400, test: (s) => s.speciesOwned >= 12 },
+  { id: 'all-species',  text: 'Adopt all 15 animals!',    reward: 400, test: (s) => s.speciesOwned >= 15 },
   { id: 'five-decor', text: 'Place 5 decorations', reward: 75, test: (s) => s.decorCount >= 5 },
 ];
 
